@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {"id": "Core Executive", "group": "Executive", "color": "#00D4FF"},
+    {"id": "Virtualization Engine", "group": "Executive", "color": "#00D4FF"},
+    {"id": "State Recovery", "group": "State & memory", "color": "#00FFAA"},
+    {"id": "Memory Buffer", "group": "State & memory", "color": "#00FFAA"},
+    {"id": "Agent Cluster A", "group": "Agents", "color": "#FF8C00"},
+    {"id": "Agent Cluster B", "group": "Agents", "color": "#FF8C00"}
+  ],
+  "edges": [
+    ["Core Executive", "Virtualization Engine"],
+    ["Core Executive", "State Recovery"],
+    ["Core Executive", "Memory Buffer"],
+    ["Virtualization Engine", "Agent Cluster A"],
+    ["Virtualization Engine", "Agent Cluster B"],
+    ["State Recovery", "Memory Buffer"],
+    ["Agent Cluster A", "Agent Cluster B"]
+  ]
+}

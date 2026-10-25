@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+.stApp {
+    background: radial-gradient(ellipse at 60% 0%, #0b1b2d 0%, #05070d 60%);
+    color: #dce8f7;
+    font-family: 'Space Grotesk', sans-serif;
+}
+[data-testid="stSidebar"] { background: #080e18; border-right: 1px solid #1c2c40; }
+[data-testid="stHeader"] { background: transparent; }
+.block-container { padding-top: 2rem; max-width: 1600px; }
+h1 { color: #f0f7ff; font-weight: 600; letter-spacing: -1.8px; }
+h2, h3 { color: #dce8f7; }
+.eyebrow { color: #00d4ff; letter-spacing: 3px; font-size: 0.72rem; font-weight: 600; }
+.status-line { color: #00ffaa; font: 0.7rem monospace; letter-spacing: 1px; margin: 1.2rem 0 1.8rem; }
+[data-testid="stMetric"] {
+    background: linear-gradient(130deg, #0f1b2c, #0a111c);
+    border: 1px solid #20364b;
+    border-top: 2px solid #00a9ca;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 26px;
+}
+[data-testid="stMetricValue"] { color: #e9faff; font-variant-numeric: tabular-nums; }
+[data-testid="stMetricLabel"] { color: #99acc2; }
+[data-testid="stCaptionContainer"] { color: #8c9db2; }
+[data-testid="stCustomComponentV1"] { border: 1px solid #20364b; border-radius: 12px; overflow: hidden; background: #080e18; }
+[data-testid="stExpander"] { border-color: #20364b; background: #080e18; }
+hr { border-color: #1c2c40; }
