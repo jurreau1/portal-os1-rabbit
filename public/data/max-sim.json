@@ -1,0 +1,187 @@
+{
+  "name": "MAX-SIM baseline",
+  "nodes": [
+    {
+      "id": "Core Executive",
+      "label": "Core Executive",
+      "type": "Executive",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "Virtualization Engine",
+      "label": "Virtualization Engine",
+      "type": "Executive",
+      "x": -155,
+      "y": -85
+    },
+    {
+      "id": "State Recovery",
+      "label": "State Recovery",
+      "type": "Memory",
+      "x": 155,
+      "y": -115
+    },
+    {
+      "id": "Memory Buffer",
+      "label": "Memory Buffer",
+      "type": "Memory",
+      "x": 205,
+      "y": 10
+    },
+    {
+      "id": "Memory Buffer Secondary",
+      "label": "Memory Buffer Secondary",
+      "type": "Memory",
+      "x": 270,
+      "y": 120
+    },
+    {
+      "id": "Routing Proxy",
+      "label": "Routing Proxy",
+      "type": "Infrastructure",
+      "x": -165,
+      "y": 90
+    },
+    {
+      "id": "Agent Cluster A",
+      "label": "Agent Cluster A",
+      "type": "Agent",
+      "x": -280,
+      "y": -155
+    },
+    {
+      "id": "Agent Cluster B",
+      "label": "Agent Cluster B",
+      "type": "Agent",
+      "x": -300,
+      "y": -10
+    },
+    {
+      "id": "Agent Cluster C",
+      "label": "Agent Cluster C",
+      "type": "Agent",
+      "x": -280,
+      "y": 155
+    },
+    {
+      "id": "Planning Engine",
+      "label": "Planning Engine",
+      "type": "Cognition",
+      "x": 5,
+      "y": -175
+    },
+    {
+      "id": "World Model",
+      "label": "World Model",
+      "type": "Cognition",
+      "x": 165,
+      "y": -230
+    },
+    {
+      "id": "Simulation Runtime",
+      "label": "Simulation Runtime",
+      "type": "Infrastructure",
+      "x": 30,
+      "y": 180
+    }
+  ],
+  "edges": [
+    {
+      "source": "Core Executive",
+      "target": "Virtualization Engine"
+    },
+    {
+      "source": "Core Executive",
+      "target": "State Recovery"
+    },
+    {
+      "source": "Core Executive",
+      "target": "Memory Buffer"
+    },
+    {
+      "source": "Core Executive",
+      "target": "Routing Proxy"
+    },
+    {
+      "source": "Core Executive",
+      "target": "Planning Engine"
+    },
+    {
+      "source": "Core Executive",
+      "target": "Simulation Runtime"
+    },
+    {
+      "source": "Virtualization Engine",
+      "target": "Agent Cluster A"
+    },
+    {
+      "source": "Virtualization Engine",
+      "target": "Agent Cluster B"
+    },
+    {
+      "source": "Virtualization Engine",
+      "target": "Agent Cluster C"
+    },
+    {
+      "source": "Virtualization Engine",
+      "target": "Simulation Runtime"
+    },
+    {
+      "source": "State Recovery",
+      "target": "Memory Buffer"
+    },
+    {
+      "source": "State Recovery",
+      "target": "Memory Buffer Secondary"
+    },
+    {
+      "source": "Memory Buffer",
+      "target": "Memory Buffer Secondary"
+    },
+    {
+      "source": "Memory Buffer",
+      "target": "World Model"
+    },
+    {
+      "source": "Memory Buffer Secondary",
+      "target": "Simulation Runtime"
+    },
+    {
+      "source": "Routing Proxy",
+      "target": "Agent Cluster A"
+    },
+    {
+      "source": "Routing Proxy",
+      "target": "Agent Cluster B"
+    },
+    {
+      "source": "Routing Proxy",
+      "target": "Agent Cluster C"
+    },
+    {
+      "source": "Routing Proxy",
+      "target": "Simulation Runtime"
+    },
+    {
+      "source": "Agent Cluster A",
+      "target": "Agent Cluster B"
+    },
+    {
+      "source": "Agent Cluster B",
+      "target": "Agent Cluster C"
+    },
+    {
+      "source": "Planning Engine",
+      "target": "World Model"
+    },
+    {
+      "source": "Planning Engine",
+      "target": "Simulation Runtime"
+    },
+    {
+      "source": "World Model",
+      "target": "Simulation Runtime"
+    }
+  ]
+}
