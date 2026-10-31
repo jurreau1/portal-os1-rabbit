@@ -1,6 +1,11 @@
-import type { Page } from "../types/navigation";
-
-export type CommandAction = "open" | "launch" | "search" | "theme" | "help";
+export type CommandAction =
+  | "open"
+  | "launch"
+  | "search"
+  | "theme"
+  | "help"
+  | "world"
+  | "goto";
 
 export interface ParsedCommand {
   action: CommandAction;
@@ -11,11 +16,11 @@ export interface CommandDefinition {
   action: CommandAction;
   target: string;
   description: string;
-  page?: Page;
+  page?: import("../types/navigation").Page;
 }
 
 export interface ExecutorContext {
-  navigate: (page: Page) => void;
+  navigate: (page: import("../types/navigation").Page) => void;
   setTheme: (theme: string) => void;
   showHelp: (topic?: string) => void;
 }

@@ -1,6 +1,14 @@
 import type { CommandAction, ParsedCommand } from "../types";
 
-const ACTIONS: CommandAction[] = ["open", "launch", "search", "theme", "help"];
+const ACTIONS: CommandAction[] = [
+  "open",
+  "launch",
+  "search",
+  "theme",
+  "help",
+  "world",
+  "goto",
+];
 
 export function parseCommand(input: string): ParsedCommand | null {
   const trimmed = input.trim();

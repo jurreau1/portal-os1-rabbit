@@ -1,43 +1,13 @@
-export interface WorldDistrict {
-  id: string;
-  name: string;
-  description: string;
-  position: { x: number; y: number; z: number };
-  theme: string;
-  portals: string[];
-  enabled: boolean;
+import { create } from "zustand";
+
+export interface WorldState {
+  currentDistrict: string;
+  setCurrentDistrict: (district: string) => void;
+  teleportTo: (district: string) => void;
 }
 
-export interface PortalNode {
-  id: string;
-  title: string;
-  sourceDistrict: string;
-  targetDistrict: string;
-  position: { x: number; y: number; z: number };
-}
-
-export interface MaxversePlayer {
-  id: string;
-  username: string;
-  avatar: string;
-  district: string;
-  achievements: string[];
-  inventory: string[];
-  projects: string[];
-}
-
-export interface WorldModule {
-  id: string;
-  category: "game" | "app" | "media" | "research";
-  district: string;
-  launchCommand: string;
-  route: string;
-}
-
-export interface Agent {
-  id: string;
-  name: string;
-  role: string;
-  district: string;
-  commands: string[];
-}
+export const useWorldState = create<WorldState>((set) => ({
+  currentDistrict: "nexus",
+  setCurrentDistrict: (district: string) => set({ currentDistrict: district }),
+  teleportTo: (district: string) => set({ currentDistrict: district }),
+}));
