@@ -1,29 +1,24 @@
-import { useMemo, useState, type ReactNode } from "react";
-import { WorldContext, worldAgents, worldDistricts, worldModules, worldPlayer, worldPortals } from "./WorldRegistry";
+import type { ReactNode } from "react";
 
-export function WorldProvider({ children }: { children: ReactNode }) {
-  const [currentDistrict, setCurrentDistrict] = useState(worldPlayer.district);
+import { useWorld } from "./WorldProvider";
 
-  const value = useMemo(
-    () => ({
-      districts: worldDistricts,
-      portals: worldPortals,
-      player: worldPlayer,
-      modules: worldModules,
-      agents: worldAgents,
-      currentDistrict,
-      setCurrentDistrict,
-      navigateToDistrict: (districtId: string) => setCurrentDistrict(districtId),
-      launchModule: (moduleId: string) => {
-        const match = worldModules.find((module) => module.id === moduleId);
-        if (match) {
-          setCurrentDistrict(match.district);
-          window.location.hash = match.route;
-        }
-      },
-    }),
-    [currentDistrict],
+export function WorldRouter({ children }: { children?: ReactNode }) {
+  const { currentDistrict } = useWorld();
+
+  return (
+    <section aria-label="MAXVERSE world router" style={{ padding: 16 }}>
+      <div
+        style={{
+          padding: 12,
+          border: "1px solid #2a3d56",
+          borderRadius: 12,
+          marginBottom: 12,
+          background: "rgba(15, 23, 42, 0.7)",
+        }}
+      >
+        <strong>District:</strong> {currentDistrict}
+      </div>
+      {children}
+    </section>
   );
-
-  return <WorldContext.Provider value={value}>{children}</WorldContext.Provider>;
 }

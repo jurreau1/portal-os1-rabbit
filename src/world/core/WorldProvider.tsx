@@ -1,7 +1,13 @@
-import { createContext, useContext } from "react";
-import type { Dispatch, SetStateAction } from "react";
+import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+
 import type { Agent, MaxversePlayer, PortalNode, WorldDistrict, WorldModule } from "./WorldState";
-import { defaultAgents, defaultDistricts, defaultModules, defaultPlayer, defaultPortals } from "./WorldRegistry";
+import {
+  defaultAgents,
+  defaultDistricts,
+  defaultModules,
+  defaultPlayer,
+  defaultPortals,
+} from "./WorldRegistry";
 
 export type WorldContextValue = {
   districts: WorldDistrict[];
@@ -10,7 +16,7 @@ export type WorldContextValue = {
   modules: WorldModule[];
   agents: Agent[];
   currentDistrict: string;
-  setCurrentDistrict: Dispatch<SetStateAction<string>>;
+  setCurrentDistrict: React.Dispatch<React.SetStateAction<string>>;
   navigateToDistrict: (districtId: string) => void;
   launchModule: (moduleId: string) => void;
 };
@@ -32,3 +38,28 @@ export const worldPortals = defaultPortals;
 export const worldPlayer = defaultPlayer;
 export const worldModules = defaultModules;
 export const worldAgents = defaultAgents;
+
+export function WorldProvider({ children }: { children: ReactNode }) {
+  const [currentDistrict, setCurrentDistrict] = useState(defaultPlayer.district);
+
+  const value = useMemo<WorldContextValue>(() => ({
+    districts: defaultDistricts,
+    portals: defaultPortals,
+    player: defaultPlayer,
+    modules: defaultModules,
+    agents: defaultAgents,
+    currentDistrict,
+    setCurrentDistrict,
+    navigateToDistrict: (districtId: string) => setCurrentDistrict(districtId),
+    launchModule: (moduleId: string) => {
+      const match = defaultModules.find((module) => module.id === moduleId);
+      if (!match) return;
+      setCurrentDistrict(match.district);
+      if (typeof window !== "undefined") {
+        window.location.hash = match.route;
+      }
+    },
+  }), [currentDistrict]);
+
+  return <WorldContext.Provider value={value}>{children}</WorldContext.Provider>;
+}
