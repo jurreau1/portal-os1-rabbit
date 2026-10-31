@@ -1,6 +1,4 @@
-import { useMemo } from "react";
-
-import { marketplaceRuntime } from "../marketplace/MarketplaceRuntime";
+import { marketplaceRuntime } from "../MarketplaceRuntime";
 
 export default function MarketplacePage() {
   const products = useMemo(() => {

@@ -29,6 +29,11 @@ export default function CommandPalette({
       { action: "open", target: "apps", page: "apps" as Page },
       { action: "open", target: "media", page: "media" as Page },
       { action: "open", target: "research", page: "research" as Page },
+      { action: "open", target: "profile", page: "profile" as Page },
+      { action: "open", target: "library", page: "library" as Page },
+      { action: "open", target: "settings", page: "settings" as Page },
+      { action: "open", target: "marketplace", page: "marketplace" as Page },
+      { action: "open", target: "creator", page: "creator" as Page },
       { action: "world", target: "" },
       { action: "goto", target: "nexus" },
       { action: "goto", target: "games" },
@@ -41,6 +46,11 @@ export default function CommandPalette({
       { action: "theme", target: "cyber" },
       { action: "theme", target: "matrix" },
       { action: "help", target: "" },
+      { action: "profile", target: "" },
+      { action: "library", target: "" },
+      { action: "settings", target: "" },
+      { action: "store", target: "" },
+      { action: "creator", target: "" },
     ].filter((item) => {
       const haystack = `${item.action} ${item.target}`.toLowerCase();
       return fuzzyMatch(q, haystack);
@@ -75,6 +85,11 @@ export default function CommandPalette({
                     apps: "apps",
                     media: "media",
                     research: "research",
+                    profile: "profile",
+                    library: "library",
+                    settings: "settings",
+                    marketplace: "marketplace",
+                    creator: "creator",
                   };
 
                   if (map[target]) {
@@ -86,6 +101,36 @@ export default function CommandPalette({
 
                 if (action === "theme" && target) {
                   onThemeChange(target);
+                  onClose();
+                  return;
+                }
+
+                if (action === "profile") {
+                  onNavigate("profile");
+                  onClose();
+                  return;
+                }
+
+                if (action === "library") {
+                  onNavigate("library");
+                  onClose();
+                  return;
+                }
+
+                if (action === "settings") {
+                  onNavigate("settings");
+                  onClose();
+                  return;
+                }
+
+                if ((action === "store" || action === "marketplace") && !target) {
+                  onNavigate("marketplace");
+                  onClose();
+                  return;
+                }
+
+                if (action === "creator") {
+                  onNavigate("creator");
                   onClose();
                   return;
                 }
@@ -123,6 +168,20 @@ export default function CommandPalette({
                   window.dispatchEvent(
                     new CustomEvent("maxverse:world", { detail: { enable: true } }),
                   );
+                } else if (item.action === "goto" && item.target) {
+                  window.dispatchEvent(
+                    new CustomEvent("maxverse:goto", { detail: { district: item.target } }),
+                  );
+                } else if (item.action === "profile") {
+                  onNavigate("profile");
+                } else if (item.action === "library") {
+                  onNavigate("library");
+                } else if (item.action === "settings") {
+                  onNavigate("settings");
+                } else if (item.action === "store") {
+                  onNavigate("marketplace");
+                } else if (item.action === "creator") {
+                  onNavigate("creator");
                 }
 
                 onClose();
@@ -151,6 +210,16 @@ export default function CommandPalette({
                     window.dispatchEvent(
                       new CustomEvent("maxverse:goto", { detail: { district: item.target } }),
                     );
+                  } else if (item.action === "profile") {
+                    onNavigate("profile");
+                  } else if (item.action === "library") {
+                    onNavigate("library");
+                  } else if (item.action === "settings") {
+                    onNavigate("settings");
+                  } else if (item.action === "store") {
+                    onNavigate("marketplace");
+                  } else if (item.action === "creator") {
+                    onNavigate("creator");
                   }
 
                   onClose();

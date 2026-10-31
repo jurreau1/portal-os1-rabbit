@@ -7,20 +7,20 @@ type Props = {
   onNavigate: (page: Page) => void;
 };
 
-export default function Sidebar({
-  active,
-  collapsed,
-  onToggle,
-  onNavigate,
-}: Props) {
-  const items: Array<{ key: Page; label: string }> = [
-    { key: "home", label: "Home" },
-    { key: "games", label: "Games" },
-    { key: "apps", label: "Apps" },
-    { key: "media", label: "Media" },
-    { key: "research", label: "Research" },
-  ];
+const items: Array<{ key: Page; label: string }> = [
+  { key: "home", label: "Home" },
+  { key: "games", label: "Games" },
+  { key: "apps", label: "Apps" },
+  { key: "media", label: "Media" },
+  { key: "research", label: "Research" },
+  { key: "profile", label: "Profile" },
+  { key: "library", label: "Library" },
+  { key: "marketplace", label: "Marketplace" },
+  { key: "creator", label: "Creator" },
+  { key: "settings", label: "Settings" },
+];
 
+export default function Sidebar({ active, collapsed, onToggle, onNavigate }: Props) {
   return (
     <aside className={collapsed ? "sidebar collapsed" : "sidebar"}>
       <div className="sidebar-top">
@@ -38,7 +38,7 @@ export default function Sidebar({
           className={active === item.key ? "nav-button active" : "nav-button"}
           onClick={() => onNavigate(item.key)}
         >
-          {collapsed ? item.label.charAt(0).toUpperCase() : item.label.toUpperCase()}
+          {collapsed ? item.label.charAt(0).toUpperCase() : item.label}
         </button>
       ))}
     </aside>

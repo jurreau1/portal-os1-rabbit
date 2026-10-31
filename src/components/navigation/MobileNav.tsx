@@ -8,9 +8,9 @@ type Props = {
 const NAV_ITEMS: Array<{ id: Page; label: string; icon: string }> = [
   { id: "home", label: "Home", icon: "🏠" },
   { id: "games", label: "Games", icon: "🎮" },
-  { id: "apps", label: "Apps", icon: "📱" },
-  { id: "media", label: "Media", icon: "🎬" },
-  { id: "research", label: "Research", icon: "🧠" },
+  { id: "marketplace", label: "Market", icon: "🛒" },
+  { id: "library", label: "Library", icon: "📚" },
+  { id: "profile", label: "Profile", icon: "👤" },
 ];
 
 export default function MobileNav({ active, onNavigate }: Props) {

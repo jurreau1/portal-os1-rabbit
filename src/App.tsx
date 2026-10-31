@@ -5,6 +5,11 @@ import Games from "./../pages/Games";
 import Apps from "./../pages/Apps";
 import Media from "./../pages/Media";
 import Research from "./../pages/Research";
+import Profile from "./../pages/Profile";
+import Library from "./../pages/Library";
+import Settings from "./../pages/Settings";
+import Marketplace from "./../pages/Marketplace";
+import Creator from "./../pages/Creator";
 import Header from "./../components/navigation/Header";
 import Sidebar from "./../components/navigation/Sidebar";
 import MobileNav from "./../components/navigation/MobileNav";
@@ -59,6 +64,16 @@ function PortalShell() {
         return <Media />;
       case "research":
         return <Research />;
+      case "profile":
+        return <Profile />;
+      case "library":
+        return <Library />;
+      case "settings":
+        return <Settings />;
+      case "marketplace":
+        return <Marketplace />;
+      case "creator":
+        return <Creator />;
       default:
         return <Home />;
     }
