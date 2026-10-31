@@ -24,16 +24,23 @@ export default function CommandPalette({
     const q = query.replace("/", "").trim().toLowerCase();
 
     return [
-      { action: "open", target: "home", page: "home" as Page, description: "Open dashboard" },
-      { action: "open", target: "games", page: "games" as Page, description: "Open games" },
-      { action: "open", target: "apps", page: "apps" as Page, description: "Open apps" },
-      { action: "open", target: "media", page: "media" as Page, description: "Open media" },
-      { action: "open", target: "research", page: "research" as Page, description: "Open research" },
-      { action: "theme", target: "dark", description: "Dark theme" },
-      { action: "theme", target: "light", description: "Light theme" },
-      { action: "theme", target: "neon", description: "Neon theme" },
-      { action: "theme", target: "cyber", description: "Cyber theme" },
-      { action: "theme", target: "matrix", description: "Matrix theme" },
+      { action: "open", target: "home", page: "home" as Page },
+      { action: "open", target: "games", page: "games" as Page },
+      { action: "open", target: "apps", page: "apps" as Page },
+      { action: "open", target: "media", page: "media" as Page },
+      { action: "open", target: "research", page: "research" as Page },
+      { action: "world", target: "" },
+      { action: "goto", target: "nexus" },
+      { action: "goto", target: "games" },
+      { action: "goto", target: "apps" },
+      { action: "goto", target: "media" },
+      { action: "goto", target: "research" },
+      { action: "theme", target: "dark" },
+      { action: "theme", target: "light" },
+      { action: "theme", target: "neon" },
+      { action: "theme", target: "cyber" },
+      { action: "theme", target: "matrix" },
+      { action: "help", target: "" },
     ].filter((item) => {
       const haystack = `${item.action} ${item.target}`.toLowerCase();
       return fuzzyMatch(q, haystack);
@@ -59,9 +66,9 @@ export default function CommandPalette({
               if (normalized.startsWith("/")) {
                 const parts = normalized.substring(1).split(/\s+/);
                 const action = parts[0]?.toLowerCase();
+                const target = parts[1]?.toLowerCase();
 
-                if (action === "open" && parts[1]) {
-                  const target = parts[1].toLowerCase();
+                if (action === "open" && target) {
                   const map: Record<string, Page> = {
                     home: "home",
                     games: "games",
@@ -77,8 +84,30 @@ export default function CommandPalette({
                   }
                 }
 
-                if (action === "theme" && parts[1]) {
-                  onThemeChange(parts[1].toLowerCase());
+                if (action === "theme" && target) {
+                  onThemeChange(target);
+                  onClose();
+                  return;
+                }
+
+                if (action === "world") {
+                  window.dispatchEvent(
+                    new CustomEvent("maxverse:world", { detail: { enable: true } }),
+                  );
+                  onClose();
+                  return;
+                }
+
+                if (action === "goto" && target) {
+                  window.dispatchEvent(
+                    new CustomEvent("maxverse:goto", { detail: { district: target } }),
+                  );
+                  onClose();
+                  return;
+                }
+
+                if (action === "help") {
+                  window.dispatchEvent(new CustomEvent("maxverse:help"));
                   onClose();
                   return;
                 }
@@ -90,7 +119,12 @@ export default function CommandPalette({
                   onNavigate(item.page);
                 } else if (item.action === "theme") {
                   onThemeChange(item.target);
+                } else if (item.action === "world") {
+                  window.dispatchEvent(
+                    new CustomEvent("maxverse:world", { detail: { enable: true } }),
+                  );
                 }
+
                 onClose();
               }
             }
@@ -109,7 +143,16 @@ export default function CommandPalette({
                     onNavigate(item.page);
                   } else if (item.action === "theme") {
                     onThemeChange(item.target);
+                  } else if (item.action === "world") {
+                    window.dispatchEvent(
+                      new CustomEvent("maxverse:world", { detail: { enable: true } }),
+                    );
+                  } else if (item.action === "goto" && item.target) {
+                    window.dispatchEvent(
+                      new CustomEvent("maxverse:goto", { detail: { district: item.target } }),
+                    );
                   }
+
                   onClose();
                 }}
               >
