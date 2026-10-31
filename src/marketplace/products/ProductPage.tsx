@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { marketplaceRuntime } from "../MarketplaceRuntime";
 
-export default function ProductPage({ productId }: { productId: string }) {
+export default function ProductPage({ productId, onInstall }: { productId: string; onInstall?: (productId: string) => void }) {
   const product = useMemo(() => marketplaceRuntime.getProductSummary(productId).product, [productId]);
   const averageRating = useMemo(() => marketplaceRuntime.getProductSummary(productId).averageRating, [productId]);
 
@@ -26,8 +26,16 @@ export default function ProductPage({ productId }: { productId: string }) {
         </div>
       </div>
 
-      <div className="page-actions">
-        <button type="button" className="primary-button">Install</button>
+      <div className="page-actions" style={{ display: "flex", gap: 8, marginTop: 16 }}>
+        <button type="button" className="primary-button" onClick={() => onInstall?.(product.id)}>
+          Install
+        </button>
+        <button type="button" className="chip">
+          View Creator
+        </button>
+        <button type="button" className="chip">
+          Reviews
+        </button>
       </div>
     </section>
   );

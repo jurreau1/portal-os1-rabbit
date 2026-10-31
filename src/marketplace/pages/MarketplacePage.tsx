@@ -1,6 +1,11 @@
+import { useMemo, useState } from "react";
+
+import { identityRuntime } from "../../identity/IdentityRuntime";
 import { marketplaceRuntime } from "../MarketplaceRuntime";
 
 export default function MarketplacePage() {
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+
   const products = useMemo(() => {
     const seeded = marketplaceRuntime.listProducts();
     if (seeded.length === 0) {
@@ -39,6 +44,52 @@ export default function MarketplacePage() {
     return seeded;
   }, []);
 
+  const installProduct = (productId: string) => {
+    const currentUser = identityRuntime.getCurrentProfile() ?? identityRuntime.signInGuest();
+    const product = marketplaceRuntime.getProductSummary(productId).product;
+
+    if (!product) {
+      return;
+    }
+
+    marketplaceRuntime.installProduct(productId, currentUser.id);
+    identityRuntime.addLibraryItem({
+      id: product.id,
+      name: product.name,
+      type:
+        product.category === "games"
+          ? "game"
+          : product.category === "apps"
+            ? "app"
+            : product.category === "assets"
+              ? "asset"
+              : product.category === "themes"
+                ? "theme"
+                : product.category === "templates"
+                  ? "template"
+                  : "research",
+      catalog: product.category,
+      metadata: {
+        creatorId: product.creatorId,
+        price: product.price,
+      },
+    });
+  };
+
+  if (selectedProductId) {
+    return (
+      <section className="screen">
+        <div className="screen-header">
+          <h1>Product Detail</h1>
+          <button type="button" className="chip" onClick={() => setSelectedProductId(null)}>
+            Back to Marketplace
+          </button>
+        </div>
+        <ProductPage productId={selectedProductId} onInstall={installProduct} />
+      </section>
+    );
+  }
+
   return (
     <section className="screen">
       <div className="screen-header">
@@ -63,9 +114,51 @@ export default function MarketplacePage() {
               <span className="badge">${product.price.toFixed(2)}</span>
               <span className="badge">{product.status}</span>
             </div>
+            <div className="page-actions" style={{ display: "flex", gap: 8, marginTop: 16 }}>
+              <button type="button" className="primary-button" onClick={() => setSelectedProductId(product.id)}>
+                View Product
+              </button>
+              <button type="button" className="chip" onClick={() => installProduct(product.id)}>
+                Install
+              </button>
+            </div>
           </div>
         ))}
       </div>
     </section>
+  );
+}
+
+function ProductPage({ productId, onInstall }: { productId: string; onInstall: (productId: string) => void }) {
+  const product = useMemo(() => marketplaceRuntime.getProductSummary(productId).product, [productId]);
+  const averageRating = useMemo(() => marketplaceRuntime.getProductSummary(productId).averageRating, [productId]);
+
+  if (!product) {
+    return <div className="empty-state">Product not found.</div>;
+  }
+
+  return (
+    <div className="panel">
+      <div className="card-kicker">{product.category}</div>
+      <h2>{product.name}</h2>
+      <p>{product.description}</p>
+      <div className="list-row">
+        <span className="badge">Creator: {product.creatorId}</span>
+        <span className="badge">Rating: {averageRating.toFixed(1)}/5</span>
+        <span className="badge">Version: 1.0.0</span>
+      </div>
+
+      <div className="page-actions" style={{ display: "flex", gap: 8, marginTop: 16 }}>
+        <button type="button" className="primary-button" onClick={() => onInstall(product.id)}>
+          Install Product
+        </button>
+        <button type="button" className="chip">
+          View Creator
+        </button>
+        <button type="button" className="chip">
+          Reviews ({marketplaceRuntime.getProductSummary(product.id).averageRating > 0 ? 1 : 0})
+        </button>
+      </div>
+    </div>
   );
 }

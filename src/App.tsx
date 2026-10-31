@@ -82,12 +82,7 @@ function PortalShell() {
   return (
     <>
       <div className="portal-layout">
-        <Sidebar
-          active={page}
-          collapsed={collapsed}
-          onToggle={() => setCollapsed((current) => !current)}
-          onNavigate={setPage}
-        />
+        <Sidebar active={page} collapsed={collapsed} onToggle={() => setCollapsed((current) => !current)} onNavigate={setPage} />
 
         <div className="portal-main">
           <Header onCommandOpen={() => setCommandOpen(true)} />
@@ -104,12 +99,7 @@ function PortalShell() {
         <MobileNav active={page} onNavigate={setPage} />
       </div>
 
-      <CommandPalette
-        open={commandOpen}
-        onClose={() => setCommandOpen(false)}
-        onNavigate={setPage}
-        onThemeChange={setTheme}
-      />
+      <CommandPalette open={commandOpen} onClose={() => setCommandOpen(false)} onNavigate={setPage} onThemeChange={setTheme} />
     </>
   );
 }
@@ -123,13 +113,7 @@ function WorldShell() {
       <HUD onExit={exitWorld} />
 
       <div style={{ marginTop: 48, display: "flex", gap: 12, flexWrap: "wrap" }}>
-        {[
-          "nexus",
-          "games",
-          "apps",
-          "media",
-          "research",
-        ].map((district) => (
+        {["nexus", "games", "apps", "media", "research"].map((district) => (
           <button
             key={district}
             type="button"
@@ -147,9 +131,7 @@ function WorldShell() {
         ))}
       </div>
 
-      <div style={{ marginTop: 24, fontSize: 18 }}>
-        World active — District: {currentDistrict}
-      </div>
+      <div style={{ marginTop: 24, fontSize: 18 }}>World active — District: {currentDistrict}</div>
     </div>
   );
 }
