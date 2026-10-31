@@ -1,18 +1,23 @@
-import type { ParsedCommand } from "../types";
+import type { CommandAction, ParsedCommand } from "../types";
+
+const ACTIONS: CommandAction[] = ["open", "launch", "search", "theme", "help"];
 
 export function parseCommand(input: string): ParsedCommand | null {
-  const value = input.trim();
+  const trimmed = input.trim();
 
-  if (!value.startsWith("/")) {
+  if (!trimmed.startsWith("/")) {
     return null;
   }
 
-  const pieces = value.replace("/", "").split(" ");
-  const action = pieces[0].toLowerCase();
-  const target = pieces.slice(1).join(" ");
+  const parts = trimmed.substring(1).split(/\s+/);
+  const action = parts[0]?.toLowerCase();
+
+  if (!action || !ACTIONS.includes(action as CommandAction)) {
+    return null;
+  }
 
   return {
-    action: action as ParsedCommand["action"],
-    target,
+    action: action as CommandAction,
+    target: parts.slice(1).join(" "),
   };
 }

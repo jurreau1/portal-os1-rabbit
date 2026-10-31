@@ -1,5 +1,5 @@
 export default function Games() {
-  const games = ["Chess", "Puzzle", "Memory", "Strategy", "Tactics", "Arcade"];
+  const games = ["Chess", "Puzzle", "Memory", "Strategy", "Arcade"];
 
   return (
     <section>

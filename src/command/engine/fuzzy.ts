@@ -1,19 +1,19 @@
-export function fuzzyMatch(query: string, target: string): boolean {
-  const normalizedQuery = query.trim().toLowerCase();
-  const normalizedTarget = target.trim().toLowerCase();
+export function fuzzyMatch(query: string, candidate: string): boolean {
+  const q = query.trim().toLowerCase();
+  const c = candidate.trim().toLowerCase();
 
-  if (!normalizedQuery) {
+  if (!q) {
     return true;
   }
 
   let queryIndex = 0;
 
-  for (let targetIndex = 0; targetIndex < normalizedTarget.length; targetIndex += 1) {
-    if (normalizedTarget[targetIndex] === normalizedQuery[queryIndex]) {
+  for (let i = 0; i < c.length; i += 1) {
+    if (c[i] === q[queryIndex]) {
       queryIndex += 1;
     }
 
-    if (queryIndex >= normalizedQuery.length) {
+    if (queryIndex === q.length) {
       return true;
     }
   }

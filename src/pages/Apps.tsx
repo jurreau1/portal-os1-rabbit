@@ -1,5 +1,5 @@
 export default function Apps() {
-  const apps = ["Notes", "Translator", "Analytics", "Research Tools", "Planning", "Automation"];
+  const apps = ["Notes", "Translator", "Analytics", "Research Tools", "Planning"];
 
   return (
     <section>

@@ -1,11 +1,8 @@
-import HeroBanner from "../components/portal/HeroBanner";
-import ModuleGrid from "../components/portal/ModuleGrid";
-
 export default function Home() {
   return (
-    <>
-      <HeroBanner />
-      <ModuleGrid />
-    </>
+    <section>
+      <h1>MAXVERSE</h1>
+      <p>Explore apps, games, media and research.</p>
+    </section>
   );
 }

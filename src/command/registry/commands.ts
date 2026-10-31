@@ -4,42 +4,32 @@ export const COMMANDS: CommandDefinition[] = [
   {
     action: "open",
     target: "home",
-    description: "Open dashboard",
     page: "home",
+    description: "Open dashboard",
   },
   {
     action: "open",
     target: "games",
-    description: "Open games",
     page: "games",
+    description: "Open games",
   },
   {
     action: "open",
     target: "apps",
-    description: "Open apps",
     page: "apps",
+    description: "Open apps",
   },
   {
     action: "open",
     target: "media",
-    description: "Open media",
     page: "media",
+    description: "Open media",
   },
   {
     action: "open",
     target: "research",
-    description: "Open research",
     page: "research",
-  },
-  {
-    action: "launch",
-    target: "chess",
-    description: "Launch chess",
-  },
-  {
-    action: "launch",
-    target: "translator",
-    description: "Launch translator",
+    description: "Open research",
   },
   {
     action: "theme",
@@ -65,10 +55,5 @@ export const COMMANDS: CommandDefinition[] = [
     action: "theme",
     target: "matrix",
     description: "Matrix theme",
-  },
-  {
-    action: "help",
-    target: "",
-    description: "Show help",
   },
 ];
