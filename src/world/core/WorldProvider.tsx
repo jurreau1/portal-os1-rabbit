@@ -1,6 +1,13 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
-import type { Agent, MaxversePlayer, PortalNode, WorldDistrict, WorldModule } from "./WorldState";
+import type {
+  Agent,
+  MaxversePlayer,
+  PortalNode,
+  WorldDistrict,
+  WorldModule,
+} from "./WorldState";
+
 import {
   defaultAgents,
   defaultDistricts,
@@ -39,27 +46,30 @@ export const worldPlayer = defaultPlayer;
 export const worldModules = defaultModules;
 export const worldAgents = defaultAgents;
 
-export function WorldProvider({ children }: { children: ReactNode }) {
+export function WorldProvider({ children }: { children?: ReactNode }) {
   const [currentDistrict, setCurrentDistrict] = useState(defaultPlayer.district);
 
-  const value = useMemo<WorldContextValue>(() => ({
-    districts: defaultDistricts,
-    portals: defaultPortals,
-    player: defaultPlayer,
-    modules: defaultModules,
-    agents: defaultAgents,
-    currentDistrict,
-    setCurrentDistrict,
-    navigateToDistrict: (districtId: string) => setCurrentDistrict(districtId),
-    launchModule: (moduleId: string) => {
-      const match = defaultModules.find((module) => module.id === moduleId);
-      if (!match) return;
-      setCurrentDistrict(match.district);
-      if (typeof window !== "undefined") {
-        window.location.hash = match.route;
-      }
-    },
-  }), [currentDistrict]);
+  const value = useMemo<WorldContextValue>(
+    () => ({
+      districts: defaultDistricts,
+      portals: defaultPortals,
+      player: defaultPlayer,
+      modules: defaultModules,
+      agents: defaultAgents,
+      currentDistrict,
+      setCurrentDistrict,
+      navigateToDistrict: (districtId: string) => setCurrentDistrict(districtId),
+      launchModule: (moduleId: string) => {
+        const match = defaultModules.find((module) => module.id === moduleId);
+        if (!match) return;
+        setCurrentDistrict(match.district);
+        if (typeof window !== "undefined") {
+          window.location.hash = match.route;
+        }
+      },
+    }),
+    [currentDistrict],
+  );
 
   return <WorldContext.Provider value={value}>{children}</WorldContext.Provider>;
 }

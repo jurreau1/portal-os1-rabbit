@@ -1,5 +1,17 @@
 import type { Agent, MaxversePlayer, PortalNode, WorldDistrict, WorldModule } from "./WorldState";
 
+export const WORLD_DISTRICTS = [
+  "nexus",
+  "games",
+  "apps",
+  "media",
+  "research",
+  "creator",
+  "marketplace",
+  "community",
+  "ai",
+] as const;
+
 export const defaultDistricts: WorldDistrict[] = [
   {
     id: "nexus",
@@ -43,6 +55,42 @@ export const defaultDistricts: WorldDistrict[] = [
     description: "Knowledge and graph observatory",
     position: { x: -18, y: 0, z: -14 },
     theme: "matrix",
+    portals: ["nexus"],
+    enabled: true,
+  },
+  {
+    id: "creator",
+    name: "Creator",
+    description: "Creation and publishing workflows",
+    position: { x: 0, y: 0, z: 20 },
+    theme: "violet",
+    portals: ["nexus"],
+    enabled: true,
+  },
+  {
+    id: "marketplace",
+    name: "Marketplace",
+    description: "Discovery and commerce layer",
+    position: { x: 0, y: 0, z: -20 },
+    theme: "gold",
+    portals: ["nexus"],
+    enabled: true,
+  },
+  {
+    id: "community",
+    name: "Community",
+    description: "Social coordination and identity",
+    position: { x: -20, y: 0, z: 0 },
+    theme: "sunset",
+    portals: ["nexus"],
+    enabled: true,
+  },
+  {
+    id: "ai",
+    name: "AI",
+    description: "Intelligence and automation experiences",
+    position: { x: 20, y: 0, z: 0 },
+    theme: "cyan",
     portals: ["nexus"],
     enabled: true,
   },
