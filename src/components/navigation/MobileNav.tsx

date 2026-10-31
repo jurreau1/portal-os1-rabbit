@@ -1,0 +1,32 @@
+type Props = {
+  active: string;
+  onNavigate: (page: any) => void;
+};
+
+const NAV_ITEMS = [
+  { id: "home", label: "Home", icon: "🏠" },
+  { id: "games", label: "Games", icon: "🎮" },
+  { id: "apps", label: "Apps", icon: "📱" },
+  { id: "media", label: "Media", icon: "🎬" },
+  { id: "research", label: "Research", icon: "🧠" },
+];
+
+export default function MobileNav({ active, onNavigate }: Props) {
+  return (
+    <nav className="mobile-nav" aria-label="Mobile navigation">
+      {NAV_ITEMS.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={
+            active === item.id ? "mobile-nav-item active" : "mobile-nav-item"
+          }
+          onClick={() => onNavigate(item.id)}
+        >
+          <span>{item.icon}</span>
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+}

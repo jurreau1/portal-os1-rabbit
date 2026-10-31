@@ -1,0 +1,38 @@
+type Props = {
+  active: string;
+  collapsed: boolean;
+  onToggle: () => void;
+  onNavigate: (page: any) => void;
+};
+
+export default function Sidebar({
+  active,
+  collapsed,
+  onToggle,
+  onNavigate,
+}: Props) {
+  const pages = ["home", "games", "apps", "media", "research"];
+
+  return (
+    <aside className={collapsed ? "sidebar collapsed" : "sidebar"}>
+      <div className="sidebar-top">
+        <div className="logo">{collapsed ? "M" : "MAXVERSE"}</div>
+
+        <button type="button" className="collapse-btn" onClick={onToggle}>
+          ☰
+        </button>
+      </div>
+
+      {pages.map((page) => (
+        <button
+          key={page}
+          type="button"
+          className={active === page ? "nav-button active" : "nav-button"}
+          onClick={() => onNavigate(page)}
+        >
+          {collapsed ? page[0].toUpperCase() : page.toUpperCase()}
+        </button>
+      ))}
+    </aside>
+  );
+}
